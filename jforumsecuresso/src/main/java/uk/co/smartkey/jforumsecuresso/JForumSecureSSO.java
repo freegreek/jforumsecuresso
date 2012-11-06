@@ -56,6 +56,11 @@ public class JForumSecureSSO implements SSO {
      */
     public boolean isSessionValid(UserSession userSession, RequestContext request) {
         Cookie ssoCookie = ControllerUtils.getCookie(SecurityTools.FORUM_COOKIE_NAME);
+
+	if (ssoCookie == null) {
+		return false;
+	}
+
         String[] emailAndScreenName = SecurityTools.getInstance().decryptCookieValues(ssoCookie.getValue());
 
         if (emailAndScreenName == null) {
@@ -72,3 +77,4 @@ public class JForumSecureSSO implements SSO {
         }
     }
 }
+
